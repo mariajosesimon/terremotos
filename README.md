@@ -1,0 +1,2 @@
+# terremotos
+Ejercicio Terremotos
