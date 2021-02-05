@@ -19,6 +19,7 @@ struct ContentView: View {
                    VStack{
                        Text("Lugar")
                        Text("Escala Richer")
+                       Text("Fecha")
                        
                        
                    }
