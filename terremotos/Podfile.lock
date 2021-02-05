@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (5.4.1)
+  - GeoJSON (0.3.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.2)
+  - GeoJSON
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - GeoJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  GeoJSON: 92d886a3ee9e587b7410388456145eb4b71cdbfc
+
+PODFILE CHECKSUM: 3d525bdf6914060f663eced8e726825537f13131
+
+COCOAPODS: 1.8.4
