@@ -9,8 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+       
+        VStack{
+            MapView()
+                .frame(height: 500)
+                   //para ver los datos del mapa
+                   Text("UBICACION")
+                       .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                   VStack{
+                       Text("Lugar")
+                       Text("Escala Richer")
+                       
+                       
+                   }
+                   
+               }
+
+
+
+
+      
     }
 }
 

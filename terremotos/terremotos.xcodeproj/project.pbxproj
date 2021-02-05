@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		8179B73725CDBEB100E4109B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179B73625CDBEB100E4109B /* ContentView.swift */; };
 		8179B73925CDBEB400E4109B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8179B73825CDBEB400E4109B /* Assets.xcassets */; };
 		8179B73C25CDBEB400E4109B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8179B73B25CDBEB400E4109B /* Preview Assets.xcassets */; };
+		8179B74D25CDD9E900E4109B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179B74C25CDD9E900E4109B /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		8179B73825CDBEB400E4109B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8179B73B25CDBEB400E4109B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8179B73D25CDBEB400E4109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8179B74C25CDD9E900E4109B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BA9CE9CEDB07DE716A8FD7F3 /* Pods-terremotos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-terremotos.release.xcconfig"; path = "Target Support Files/Pods-terremotos/Pods-terremotos.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 			children = (
 				8179B73425CDBEB100E4109B /* terremotosApp.swift */,
 				8179B73625CDBEB100E4109B /* ContentView.swift */,
+				8179B74C25CDD9E900E4109B /* MapView.swift */,
 				8179B73825CDBEB400E4109B /* Assets.xcassets */,
 				8179B73D25CDBEB400E4109B /* Info.plist */,
 				8179B73A25CDBEB400E4109B /* Preview Content */,
@@ -90,7 +93,6 @@
 				2F18C52E9CC7A96D78333BB9 /* Pods-terremotos.debug.xcconfig */,
 				BA9CE9CEDB07DE716A8FD7F3 /* Pods-terremotos.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -208,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8179B73725CDBEB100E4109B /* ContentView.swift in Sources */,
+				8179B74D25CDD9E900E4109B /* MapView.swift in Sources */,
 				8179B73525CDBEB100E4109B /* terremotosApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
