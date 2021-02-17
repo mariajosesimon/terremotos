@@ -18,7 +18,6 @@ struct ContentView: View {
        
         VStack {
            
-
             //cargamos el mapa
             MapView()
             // ponemos los datos, ver como los pongo en un recuadro.
