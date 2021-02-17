@@ -27,14 +27,14 @@ struct ContentView: View {
             VStack {
                 Text(vm.lugar)
                 Text(vm.escala)
-
+              
 
 
             }
 
         } //fin primer vstack
 
-        VStack {
+       /* VStack {
             //en el picker, en el selector llamamos al switch creado en el ViewModel para ver que url debemos llamar desde Alamofire
 
             Picker("DiasSeleccionados", selection: $vm.terremotosDias) {
@@ -45,11 +45,11 @@ struct ContentView: View {
             }
 
 
-        }//fin 2 vstack
+        }//fin 2 vstack*/
 
 
             .onAppear(perform: {
-                print("cargando")
+                vm.cargarTerremotos()
             })
 
     }//fin del body

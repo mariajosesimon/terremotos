@@ -31,21 +31,18 @@ class ViewModel: ObservableObject {
         cargarTerremotos()
     }
 
-   
-   
-
     //estas son las 3 url a las que puede llamar url= urlhoy
    
     //let terrAyer = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson"
     // let terrSemana = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
     let urlhoy = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
     
-    var url: URL
+    //var url: URL
     //esta es la funcion para cargar los datos desde internet, y tendremos que llamar a Alamofire.
     func cargarTerremotos() {
         //¿Como recibimos que pickin a escogido hoy / ayer / semana?
         
-        var index: Int
+       /* var index: Int
         
         switch self.terremotosDias{
             case .hoy:
@@ -59,16 +56,13 @@ class ViewModel: ObservableObject {
                 index = 2
                 url = ("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").asURL()
 
-        } //fin switch
+        } //fin switch*/
         
         
-       
-        
-        
-        
-        
-        AF.request(url que queremos cargar).responseData{
-            response in if let data = response.data{
+        AF.request(urlhoy).responseJSON{
+                        
+                response in
+                print(response.result)
                 //hasta aqui es la peticion de alamofire a la url que queremos.
                 
                 //ahora tendremos que procesar los datos.
@@ -79,7 +73,7 @@ class ViewModel: ObservableObject {
              //   let json = GeoJSON
                 
                 
-            }
+            
             
         } //fin AF.Request
 
