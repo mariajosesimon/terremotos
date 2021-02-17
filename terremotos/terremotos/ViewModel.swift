@@ -14,8 +14,9 @@ import Foundation
 //esta clase tiene que ser la observable que es lo primero que carga.
 
 enum Dias: String, CaseIterable, Identifiable {
-    case hoy
+
     case ayer
+    case hoy
     case semana
 
     var id: String { self.rawValue }
