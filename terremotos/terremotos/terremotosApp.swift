@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct terremotosApp: App {
+    
+    var vm = ViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(vm)
         }
     }
 }
