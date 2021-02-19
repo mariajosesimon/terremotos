@@ -26,7 +26,7 @@ struct ContentView: View {
             
             VStack {
                 Text(vm.lugar)
-                Text(vm.escala)
+                Text(String(vm.escala))
 
             }
             .foregroundColor(.blue)

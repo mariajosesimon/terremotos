@@ -23,11 +23,6 @@ enum Dias: String, CaseIterable, Identifiable {
 }
 
 
-struct Features: Decodable{
-    let propiedades: Properties
-  
-}
-
 
 struct Properties: Decodable{
     let mag: Double
@@ -38,10 +33,10 @@ struct Properties: Decodable{
 class ViewModel: ObservableObject {
     //creacion de las variables que llamen a las propiedades del ContentView.
     
-    @Published var terremotosHoy = [Features]()
+    @Published var terremotos = [Properties]()
     @Published var lugar = "Carbellino"
     @Published var tipo = "terremoto"
-    @Published var escala = "0"
+    @Published var escala = 0.0
     @Published var terremotosDias = Dias.hoy
     func didSet() { //es la carga de datos al arrancar
         cargarTerremotos()
@@ -73,18 +68,36 @@ class ViewModel: ObservableObject {
             url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
         } //fin switch
-
-
-
-        
+   
            
-            AF.request(url, method: .get).validate().responseJSON { response in
+        AF.request(url, method: .get).validate().responseJSON { [self] response in
                 switch response.result {
                 
                 case .success(let value):
                     let json = JSON(value)
-                    print("JSON: \(json)")
+                   // print("JSON: \(json)")
+   
                     
+                    let terre = json["features"].arrayValue
+                    
+                    
+                    self.lugar = terre[0]["properties"]["place"].stringValue
+                    self.tipo = terre[0]["properties"]["type"].stringValue
+                    self.escala = terre[0]["properties"]["mag"].doubleValue
+                    
+                    print(self.lugar)
+                  
+                    print(self.tipo)
+              
+                    print(self.escala)
+                  
+                    
+                   // plaza = json["features"].arrayValue[0]["properties"]["place"].stringValue{
+
+                     //   print(terre)
+                   // }
+                    
+                   
                     
                     
                     
