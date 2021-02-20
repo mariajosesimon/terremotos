@@ -56,7 +56,6 @@ class ViewModel: ObservableObject {
 
 
     @Published var zonaTerremoto = CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764)
-    @Published var delta = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
     
     @Published var chincheta = MKPointAnnotation()
     
@@ -144,7 +143,7 @@ class ViewModel: ObservableObject {
                 
                 
                 //self.region.center = zonaTerremoto
-                //self.region.span = delta
+
 
                 self.region = MKCoordinateRegion(
                     center: zonaTerremoto, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
