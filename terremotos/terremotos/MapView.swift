@@ -13,6 +13,8 @@ struct MapView: View {
     //el parametro span es el rectangulo o cuadrado que mostrará el mapa
     var body: some View {
         Map(coordinateRegion: $vm.region)
+        
+       
     }
 }
 

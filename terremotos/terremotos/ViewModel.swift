@@ -49,12 +49,17 @@ class ViewModel: ObservableObject {
             cargarTerremotos()
         }
     }
+    
+    
     @Published var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
 
 
-
-
+    @Published var zonaTerremoto = CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764)
+    @Published var delta = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+    
+    @Published var chincheta = MKPointAnnotation()
+    
 
     //esta es la url de hoy.
     var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
@@ -64,14 +69,15 @@ class ViewModel: ObservableObject {
     func cargarTerremotos() {
 
         //¿Como recibimos que pickin a escogido hoy / ayer / semana?
-
-
+        
+        
+        
+        terremotos.removeAll()
 
         AF.request(url, method: .get).validate().responseJSON { [self] response in
             switch response.result {
 
             case .success(let value):
-
 
 
                 let json = JSON(value)
@@ -115,7 +121,10 @@ class ViewModel: ObservableObject {
                     self.tipo = item["properties"]["type"].stringValue
                     self.long = item["geometry"]["coordinates"][1].doubleValue
                     self.lat = item["geometry"]["coordinates"][0].doubleValue
-
+                    
+                 
+                    
+                    
                     unTerremoto.mag = self.escala
                     unTerremoto.place = self.lugar
                     unTerremoto.type = self.tipo
@@ -123,12 +132,23 @@ class ViewModel: ObservableObject {
                     unTerremoto.latitude = self.lat
 
                     terremotos.append(unTerremoto)
-                    print(unTerremoto)
-
+                    
+                
                 }
+                
+                
+                //estas  lineas son para ubicar en el mapa el terremoto y poner la chincheta
+                //estoy utilizando el ultimo registro que lee a ver si pone bien la chincheta.
+                self.zonaTerremoto.latitude = unTerremoto.latitude
+                self.zonaTerremoto.longitude = unTerremoto.longitude
+                
+                
+                //self.region.center = zonaTerremoto
+                //self.region.span = delta
 
-
-
+                self.region = MKCoordinateRegion(
+                    center: zonaTerremoto, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+                self.chincheta.coordinate = zonaTerremoto
 
 
 
@@ -137,25 +157,7 @@ class ViewModel: ObservableObject {
                 print(error)
             }
         }
-        //hasta aqui es la peticion de alamofire a la url que queremos.
-        //print(response.result)
 
-
-
-        //en response hemos recibido el json, que tenemos que procesar.
-
-
-
-        //ahora tendremos que procesar los datos.
-
-        //tenemos que obtener el arbol DOM del json
-        //ojo, revisar si hay 3 json distintos.
-
-
-
-
-
-        //fin AF.Request
 
 
 
