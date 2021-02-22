@@ -26,12 +26,14 @@ enum Dias: String, CaseIterable, Identifiable {
 
 
 
-struct Properties: Decodable {
+struct Properties: Identifiable {
+    var id: String
     var mag: Double
     var place: String
     var type: String
     var longitude: Double
     var latitude: Double
+    var coordenadas: CLLocationCoordinate2D
 
 }
 
@@ -40,6 +42,7 @@ class ViewModel: ObservableObject {
 
     @Published var terremotos = [Properties]()
     @Published var lugar = "Carbellino"
+    @Published var id = "0"
     @Published var tipo = "terremoto"
     @Published var escala = 0.0
     @Published var long = -6.14764
@@ -57,11 +60,10 @@ class ViewModel: ObservableObject {
 
     @Published var zonaTerremoto = CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764)
     
-    @Published var chincheta = MKPointAnnotation()
     
 
     //esta es la url de hoy.
-    var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
+    var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_hour.geojson"
 
 
     //esta es la funcion para cargar los datos desde internet, y tendremos que llamar a Alamofire.
@@ -82,23 +84,22 @@ class ViewModel: ObservableObject {
                 let json = JSON(value)
                 // print("JSON: \(json)")
 
-                var index: Int
 
                 switch self.terremotosDias {
                 case .ayer:
-                    index = 0
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson"
+                   
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson"
                     print("estoy en ayer")
 
                 case .hoy:
-                    index = 1
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
+                    
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_hour.geojson"
 
                     print("estoy en hoy")
 
                 case .semana:
-                    index = 2
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
+                   
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson"
                     print("estoy en semana")
 
                 } //fin switch
@@ -110,20 +111,22 @@ class ViewModel: ObservableObject {
 
 
                 var unTerremoto: Properties = Properties (
-                    mag: 0.0, place: "Carbellino", type: "Terremoto", longitude: -6.14764, latitude: 41.2302)
+                    id:"0",mag: 0.0, place: "Carbellino", type: "Terremoto", longitude: -6.14764, latitude: 41.2302, coordenadas: zonaTerremoto)
 
 
                 //Meto en el array los datos.
                 for item in terre {
+                    self.id = item["id"].stringValue
                     self.escala = item["properties"]["mag"].doubleValue
                     self.lugar = item["properties"]["place"].stringValue
                     self.tipo = item["properties"]["type"].stringValue
-                    self.long = item["geometry"]["coordinates"][1].doubleValue
-                    self.lat = item["geometry"]["coordinates"][0].doubleValue
+                    self.long = item["geometry"]["coordinates"][0].doubleValue
+                    self.lat = item["geometry"]["coordinates"][1].doubleValue
+                    self.zonaTerremoto.latitude = item["geometry"]["coordinates"][1].doubleValue
+                    self.zonaTerremoto.longitude = item["geometry"]["coordinates"][0].doubleValue
                     
-                 
                     
-                    
+                    unTerremoto.coordenadas = zonaTerremoto
                     unTerremoto.mag = self.escala
                     unTerremoto.place = self.lugar
                     unTerremoto.type = self.tipo
@@ -134,6 +137,7 @@ class ViewModel: ObservableObject {
                     
                 
                 }
+                
                 
                 
                 //estas  lineas son para ubicar en el mapa el terremoto y poner la chincheta
@@ -147,8 +151,9 @@ class ViewModel: ObservableObject {
 
                 self.region = MKCoordinateRegion(
                     center: zonaTerremoto, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-                self.chincheta.coordinate = zonaTerremoto
+               
 
+                
 
 
 
