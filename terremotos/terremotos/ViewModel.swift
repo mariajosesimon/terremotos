@@ -17,7 +17,7 @@ import MapKit
 //esta clase tiene que ser la observable que es lo primero que carga.
 
 enum Dias: String, CaseIterable, Identifiable {
-    case ayer
+    case treinta
     case hoy
     case semana
 
@@ -92,20 +92,20 @@ class ViewModel: ObservableObject {
 
 
                 switch self.terremotosDias {
-                case .ayer:
+                case .treinta:
                    
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
-                    print("estoy en ayer")
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson"
+                    print("estoy en treinta dias")
 
                 case .hoy:
                     
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_hour.geojson"
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson"
 
                     print("estoy en hoy")
 
                 case .semana:
                    
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson"
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson"
                     print("estoy en semana")
 
                 } //fin switch
