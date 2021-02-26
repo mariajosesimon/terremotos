@@ -29,13 +29,15 @@ enum Dias: String, CaseIterable, Identifiable {
 struct Properties: Identifiable {
     var id: String
     var mag: Double
-    var place: String
+   // var place: String
     var type: String
-    var longitude: Double
-    var latitude: Double
+   // var longitude: Double
+   // var latitude: Double
     var coordenadas: CLLocationCoordinate2D
+    var pincho: MKPointAnnotation
 
 }
+
 
 class ViewModel: ObservableObject {
     //creacion de las variables que llamen a las propiedades del ContentView.
@@ -53,17 +55,21 @@ class ViewModel: ObservableObject {
         }
     }
     
+    @Published var zonaTerremoto = CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764)
+    
     
     @Published var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+        center: CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764), span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
 
-
-    @Published var zonaTerremoto = CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764)
+    
+    
+    @Published var chincheta =  MKPointAnnotation(__coordinate: CLLocationCoordinate2D(latitude: 41.2302, longitude: -6.14764), title: "carbe", subtitle: "terremoto")
+    
     
     
 
     //esta es la url de hoy.
-    var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_hour.geojson"
+    var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
 
 
     //esta es la funcion para cargar los datos desde internet, y tendremos que llamar a Alamofire.
@@ -88,7 +94,7 @@ class ViewModel: ObservableObject {
                 switch self.terremotosDias {
                 case .ayer:
                    
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson"
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"
                     print("estoy en ayer")
 
                 case .hoy:
@@ -99,7 +105,7 @@ class ViewModel: ObservableObject {
 
                 case .semana:
                    
-                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson"
+                    url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson"
                     print("estoy en semana")
 
                 } //fin switch
@@ -110,9 +116,10 @@ class ViewModel: ObservableObject {
 
 
 
-                var unTerremoto: Properties = Properties (
-                    id:"0",mag: 0.0, place: "Carbellino", type: "Terremoto", longitude: -6.14764, latitude: 41.2302, coordenadas: zonaTerremoto)
+               // var unTerremoto: Properties = Properties (
+                 //   id:"0",mag: 0.0, place: "Carbellino", type: "Terremoto", longitude: -6.14764, latitude: 41.2302, //coordenadas: zonaTerremoto)
 
+                var unTerremoto: Properties = Properties(id: "0", mag: 0.0, type: "Terremoto", coordenadas: zonaTerremoto, pincho: chincheta)
 
                 //Meto en el array los datos.
                 for item in terre {
@@ -128,29 +135,36 @@ class ViewModel: ObservableObject {
                     
                     unTerremoto.coordenadas = zonaTerremoto
                     unTerremoto.mag = self.escala
-                    unTerremoto.place = self.lugar
+                   // unTerremoto.place = self.lugar
                     unTerremoto.type = self.tipo
-                    unTerremoto.longitude = self.long
-                    unTerremoto.latitude = self.lat
-
+                   // unTerremoto.longitude = self.long
+                   // unTerremoto.latitude = self.lat
+                    
+                    
+                    unTerremoto.pincho.coordinate = self.zonaTerremoto
+                    unTerremoto.pincho.title = self.lugar
+                    unTerremoto.pincho.subtitle = self.tipo
                     terremotos.append(unTerremoto)
+                    print(self.lugar)
                     
                 
                 }
                 
-                
+            
                 
                 //estas  lineas son para ubicar en el mapa el terremoto y poner la chincheta
                 //estoy utilizando el ultimo registro que lee a ver si pone bien la chincheta.
-                self.zonaTerremoto.latitude = unTerremoto.latitude
-                self.zonaTerremoto.longitude = unTerremoto.longitude
+              //  self.zonaTerremoto.latitude = unTerremoto.latitude
+               // self.zonaTerremoto.longitude = unTerremoto.longitude
                 
                 
                 //self.region.center = zonaTerremoto
 
 
+                //He cambiado los datos de latitudeDelta y longitudeDelta para hacer zoom out
+                
                 self.region = MKCoordinateRegion(
-                    center: zonaTerremoto, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+                    center: zonaTerremoto, span: MKCoordinateSpan(latitudeDelta: 4, longitudeDelta: 4))
                
 
                 

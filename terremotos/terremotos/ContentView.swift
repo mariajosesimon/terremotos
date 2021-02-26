@@ -25,6 +25,7 @@ struct ContentView: View {
                 //para ver los datos del mapa
 
                 VStack {
+                        
                     Text(vm.lugar)
                     Text(String("Escala:  \(vm.escala)"))
 
@@ -39,7 +40,7 @@ struct ContentView: View {
 
                 Picker("DiasSeleccionados", selection: $vm.terremotosDias) {
                     ForEach(Dias.allCases, id: \.self) {
-                        dias in Text(dias.rawValue.capitalized)
+                        dias in Text(dias.rawValue)
                     }
 
 

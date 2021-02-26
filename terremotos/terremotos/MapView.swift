@@ -9,25 +9,34 @@ import MapKit
 struct MapView: View {
     
     @EnvironmentObject var vm: ViewModel
-    
+  
+   
 
     //el parametro span es el rectangulo o cuadrado que mostrará el mapa
     var body: some View {
+       
+      
         Map(coordinateRegion: $vm.region, annotationItems: vm.terremotos) { terremoto in
-            MapAnnotation(coordinate: terremoto.coordenadas, anchorPoint: CGPoint(x: 1, y: 1)) {
+            
+           
+            MapAnnotation(coordinate: terremoto.coordenadas,  anchorPoint: CGPoint(x: 2.9, y: 2.9)) {
+              
                 Circle()
                     .stroke(Color.red)
+                    
+                    
             }
-            
-            
             
         }
         
+        
+
             
         
        
     }
 }
+
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
